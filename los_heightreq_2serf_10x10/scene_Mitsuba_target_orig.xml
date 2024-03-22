@@ -1,0 +1,70 @@
+<scene version="0.5.0">
+
+	<integrator type="path">
+			<integer name="maxDepth" value="5" />
+	</integrator>
+
+	<sensor type="perspective">
+		<float name="fov" value="90" />
+		<string name="fovAxis" value="x" />
+		<transform name="toWorld">
+
+			<lookat target="0, 0, 0" origin="-10, 100, -10" up="0, 1, 0" />
+		</transform>
+
+		<film type="hdrfilm">
+			<boolean name="banner" value="false" />
+			<integer name="height" value="256" />
+			<integer name="width" value="256" />
+		</film>
+	</sensor>
+
+	<bsdf type="diffuse" id="white">
+		<rgb name="reflectance" value="0.95, 0.95, 0.95" />
+	</bsdf>
+
+	<bsdf type="diffuse" id="red">
+		<rgb name="reflectance" value="0.90, 0.20, 0.20" />
+	</bsdf>
+
+	<bsdf type="diffuse" id="green">
+		<rgb name="reflectance" value="0.20, 0.90, 0.20" />
+	</bsdf>
+
+	<bsdf type="diffuse" id="absorption_only">
+		<rgb name="reflectance" value="0.0, 0.0, 0.0" />
+	</bsdf>
+	
+	<bsdf type="roughdielectric" id="rd">
+		<float name="intIOR" value="1.5" />
+		<float name="extIOR" value="1.0" />
+		<float name="alpha" value="0.3" />
+	</bsdf>
+
+	
+
+	<shape type="obj">
+		<string name="filename" value="emitter.obj" />
+
+		<transform name="toWorld">
+			<scale x="10" z="10" />
+			<rotate z="1" angle="180" />
+			<translate y="100" />
+		</transform>
+
+		<ref id="absorption_only" />
+
+		<emitter type="area">
+			<rgb name="radiance" value="50000.0, 50000.0, 50000.0" />
+		</emitter>
+	</shape>
+
+	<shape id="cube" type="obj">
+		<string name="filename" value="tmpobj/heightmap_867.obj" />
+		<transform name="toWorld">
+		</transform>
+		<ref id="rd" />
+	</shape>
+
+	
+</scene>
